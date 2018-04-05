@@ -1,11 +1,51 @@
 type User @model {
-  # Required system field:
-  id: ID! @isUnique # read-only (managed by Graphcool)
+    # Required system field:
+    id: ID! @isUnique # read-only (managed by Graphcool)
 
-  createdAt: DateTime! # read-only (managed by Graphcool)
-  updatedAt: DateTime! # read-only (managed by Graphcool)
+    createdAt: DateTime! # read-only (managed by Graphcool)
+    updatedAt: DateTime! # read-only (managed by Graphcool)
 
-  email: String! @isUnique
-  username: String!
-  password: String!
+    email: String! @isUnique
+    username: String!
+    password: String!
+
+    patient: Patient @relation(name: "UserOnPatient")
+    caregiver: Caregiver @relation(name: "UserOnCaregiver")
+    doctor: Doctor @relation(name: "UserOnDoctor")
+    userType: UserType!
+}
+
+enum UserType {
+    Patient,
+    Caregiver,
+    Doctor
+}
+
+type Patient @model {
+    id: ID! @isUnique
+    user: User! @relation(name: "UserOnPatient")
+    reports: [Report!]! @relation(name: "PatientOnReport")
+}
+
+type Caregiver @model {
+    id: ID! @isUnique
+    user: User! @relation(name: "UserOnCaregiver")
+}
+
+type Doctor @model {
+    id: ID! @isUnique
+    user: User! @relation(name: "UserOnDoctor")
+}
+
+type Report @model {
+    id: ID! @isUnique
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    patient: Patient! @relation(name: "PatientOnReport")
+}
+
+type MapItem @model {
+    id: ID! @isUnique
+    createdAt: DateTime!
+    updatedAt: DateTime!
 }
