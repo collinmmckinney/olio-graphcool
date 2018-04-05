@@ -74,7 +74,8 @@ async function createGraphcoolUser(api: GraphQLClient, email: string, username: 
       createUser(
         email: $email,
         username: $username,
-        password: $password
+        password: $password,
+        userType: Patient
       ) {
         id
       }
