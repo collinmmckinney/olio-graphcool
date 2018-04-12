@@ -1,0 +1,7 @@
+type InitializePatientPayload {
+  message: String!
+}
+
+extend type Mutation {
+  initializePatient(id: ID!): InitializePatientPayload
+}

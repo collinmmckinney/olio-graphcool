@@ -38,11 +38,11 @@ functions:
     handler:
       code: src/email-password/loggedInUser.ts
 
-  hello:
-    handler:
-      code: src/hello.js
+  initializePatient:
     type: resolver
-    schema: src/hello.graphql
+    schema: src/initializePatient.graphql
+    handler:
+      code: src/initializePatient.js
 
 
 # Model/Relation permissions are used to limit the API access

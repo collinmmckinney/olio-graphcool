@@ -9,9 +9,9 @@ type User @model {
     username: String!
     password: String!
 
-    patient: Patient @relation(name: "UserOnPatient")
-    caregiver: Caregiver @relation(name: "UserOnCaregiver")
-    doctor: Doctor @relation(name: "UserOnDoctor")
+    patient: Patient @relation(name: "PatientUser")
+    caregiver: Caregiver @relation(name: "CaregiverUser")
+    doctor: Doctor @relation(name: "DoctorUser")
     userType: UserType!
 }
 
@@ -23,25 +23,25 @@ enum UserType {
 
 type Patient @model {
     id: ID! @isUnique
-    user: User! @relation(name: "UserOnPatient")
-    reports: [Report!]! @relation(name: "PatientOnReport")
+    user: User! @relation(name: "PatientUser")
+    reports: [Report!]! @relation(name: "PatientReport")
 }
 
 type Caregiver @model {
     id: ID! @isUnique
-    user: User! @relation(name: "UserOnCaregiver")
+    user: User! @relation(name: "CaregiverUser")
 }
 
 type Doctor @model {
     id: ID! @isUnique
-    user: User! @relation(name: "UserOnDoctor")
+    user: User! @relation(name: "DoctorUser")
 }
 
 type Report @model {
     id: ID! @isUnique
     createdAt: DateTime!
     updatedAt: DateTime!
-    patient: Patient! @relation(name: "PatientOnReport")
+    patient: Patient! @relation(name: "PatientReport")
 }
 
 type MapItem @model {
