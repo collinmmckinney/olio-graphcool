@@ -8,11 +8,16 @@ type User @model {
     email: String! @isUnique
     username: String!
     password: String!
+    name: String
+    dateOfBirth: DateTime
+    pronoun: Pronoun
 
     patient: Patient @relation(name: "PatientUser")
     caregiver: Caregiver @relation(name: "CaregiverUser")
     doctor: Doctor @relation(name: "DoctorUser")
     userType: UserType!
+    town: String
+    state: String
 }
 
 enum UserType {
@@ -21,31 +26,76 @@ enum UserType {
     Doctor
 }
 
+enum Pronoun {
+    He,
+    She,
+    They
+}
+
+enum AllergenType {
+    Bees,
+    Pollen,
+    Animals,
+    Insects,
+    Molds,
+    Peanut,
+    Smoke,
+    Other
+}
+
 type Patient @model {
     id: ID! @isUnique
     user: User! @relation(name: "PatientUser")
-    reports: [Report!]! @relation(name: "PatientReport")
+    caregiver: [Caregiver!]! @relation(name: "PatientCaregivers")
+    doctor: [Doctor!]! @relation(name: "PatientDoctors")
+    allergens: [Allergen!]! @relation(name: "PatientAllergens")
+    medications: [Medication!]! @relation(name: "PatientMedications")
+    reports: [Report!]! @relation(name: "PatientReports")
 }
 
 type Caregiver @model {
     id: ID! @isUnique
     user: User! @relation(name: "CaregiverUser")
+    patient: [Patient!]! @relation(name: "PatientCaregivers")
+    doctor: [Doctor!]! @relation(name: "CaregiverDoctors")
 }
 
 type Doctor @model {
     id: ID! @isUnique
     user: User! @relation(name: "DoctorUser")
+    patients: [Patient!]! @relation(name: "PatientDoctors")
+    caregiver: [Caregiver!]! @relation(name: "CaregiverDoctors")
 }
 
 type Report @model {
     id: ID! @isUnique
+    patient: Patient! @relation(name: "PatientReports")
     createdAt: DateTime!
     updatedAt: DateTime!
-    patient: Patient! @relation(name: "PatientReport")
+    fev1: Float
+    fvc: Float
+}
+
+type Allergen @model {
+    id: ID! @isUnique
+    patient: Patient! @relation(name: "PatientAllergens")
+    type: AllergenType
+    severity: Int
+    comment: String
+}
+
+type Medication @model {
+    id: ID! @isUnique
+    patient: Patient! @relation(name: "PatientMedications")
+    name: String!
+    type: String
 }
 
 type MapItem @model {
     id: ID! @isUnique
     createdAt: DateTime!
     updatedAt: DateTime!
+    latitude: Float!
+    longitude: Float!
+    type: AllergenType!
 }

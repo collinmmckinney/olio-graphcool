@@ -1,28 +1,33 @@
+import { fromEvent, FunctionEvent } from 'graphcool-lib'
+import { GraphQLClient } from 'graphql-request'
+
 export default async event => {
-    // you can use ES7 with async/await and even TypeScript in your functions :)
-
-    await new Promise(r => setTimeout(r, 50))
-
+    const graphcool = fromEvent(event);
+    const api = graphcool.api('simple/v1');
+    const { userId } = event.data
+    const id = await createPatient(api, userId);
     return {
         data: {
-            message: `Hello ${event.data.username || 'World'}`
+            message: id
         }
     }
 }
 
-async function createPatient(api: GraphQLClient): Promise<string> {
+async function createPatient(api, userId){
     const mutation = `
-    mutation createPatient {
-        id
+    mutation updateUserAndCreatePatient($userId: ID!) {
+        updateUser(
+            id: $userId
+            patient: { reportsIds: [] }
+        ) {
+            id
+        }
     }
     `
 
     const variables = {
-        email,
-        username,
-        password
+        userId
     }
 
-    return api.request<{ createUser: User }>(mutation, variables)
-    .then(r => r.createUser.id)
+    return api.request(mutation, variables).then(r => r.updateUser.id)
 }
