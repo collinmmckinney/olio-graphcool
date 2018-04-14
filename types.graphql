@@ -8,7 +8,9 @@ type User @model {
     email: String! @isUnique
     username: String!
     password: String!
-    name: String
+    firstName: String
+    middleName: String
+    lastName: String
     dateOfBirth: DateTime
     pronoun: Pronoun
 
