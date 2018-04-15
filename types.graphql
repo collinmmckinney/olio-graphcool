@@ -29,20 +29,20 @@ enum UserType {
 }
 
 enum Pronoun {
-    He,
-    She,
-    They
+    he,
+    she,
+    they
 }
 
 enum AllergenType {
-    Bees,
-    Pollen,
-    Animals,
-    Insects,
-    Mold,
-    Peanut,
-    Smoke,
-    Other
+    bees,
+    pollen,
+    animals,
+    insects,
+    mold,
+    peanut,
+    smoke,
+    other
 }
 
 type Patient @model {
