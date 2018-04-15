@@ -39,7 +39,7 @@ enum AllergenType {
     Pollen,
     Animals,
     Insects,
-    Molds,
+    Mold,
     Peanut,
     Smoke,
     Other
@@ -81,7 +81,8 @@ type Report @model {
 type Allergen @model {
     id: ID! @isUnique
     patient: Patient! @relation(name: "PatientAllergens")
-    type: AllergenType
+    type: AllergenType!
+    name: String
     severity: Int
     comment: String
 }
