@@ -13,13 +13,15 @@ type User @model {
     lastName: String
     dateOfBirth: DateTime
     pronoun: Pronoun
+    town: String
+    state: String
 
     patient: Patient @relation(name: "PatientUser")
     caregiver: Caregiver @relation(name: "CaregiverUser")
     doctor: Doctor @relation(name: "DoctorUser")
     userType: UserType!
-    town: String
-    state: String
+
+    mapItems: [MapItem!]! @relation(name: "UserMapItems")
 }
 
 enum UserType {
@@ -96,9 +98,11 @@ type Medication @model {
 
 type MapItem @model {
     id: ID! @isUnique
+    user: User! @relation(name: "UserMapItems")
     createdAt: DateTime!
     updatedAt: DateTime!
     latitude: Float!
     longitude: Float!
-    type: AllergenType!
+    allergenType: AllergenType!
+    comment: String
 }
