@@ -50,8 +50,8 @@ enum AllergenType {
 type Patient @model {
     id: ID! @isUnique
     user: User! @relation(name: "PatientUser")
-    caregiver: [Caregiver!]! @relation(name: "PatientCaregivers")
-    doctor: [Doctor!]! @relation(name: "PatientDoctors")
+    caregivers: [Caregiver!]! @relation(name: "PatientCaregivers")
+    doctors: [Doctor!]! @relation(name: "PatientDoctors")
     allergens: [Allergen!]! @relation(name: "PatientAllergens")
     medications: [Medication!]! @relation(name: "PatientMedications")
     reports: [Report!]! @relation(name: "PatientReports")
@@ -60,8 +60,8 @@ type Patient @model {
 type Caregiver @model {
     id: ID! @isUnique
     user: User! @relation(name: "CaregiverUser")
-    patient: [Patient!]! @relation(name: "PatientCaregivers")
-    doctor: [Doctor!]! @relation(name: "CaregiverDoctors")
+    patients: [Patient!]! @relation(name: "PatientCaregivers")
+    doctors: [Doctor!]! @relation(name: "CaregiverDoctors")
 }
 
 type Doctor @model {
@@ -71,7 +71,7 @@ type Doctor @model {
     firstName: String!
     lastName: String!
     patients: [Patient!]! @relation(name: "PatientDoctors")
-    caregiver: [Caregiver!]! @relation(name: "CaregiverDoctors")
+    caregivers: [Caregiver!]! @relation(name: "CaregiverDoctors")
 }
 
 type Report @model {
