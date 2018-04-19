@@ -11,7 +11,7 @@ type User @model {
     firstName: String
     middleName: String
     lastName: String
-    dateOfBirth: DateTime
+    age: Int
     pronoun: Pronoun
     town: String
     state: String
