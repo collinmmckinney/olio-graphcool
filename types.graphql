@@ -52,6 +52,7 @@ type Patient @model {
     user: User! @relation(name: "PatientUser")
     caregivers: [Caregiver!]! @relation(name: "PatientCaregivers")
     doctors: [Doctor!]! @relation(name: "PatientDoctors")
+    avatar: Int
     allergens: [Allergen!]! @relation(name: "PatientAllergens")
     medications: [Medication!]! @relation(name: "PatientMedications")
     reports: [Report!]! @relation(name: "PatientReports")
