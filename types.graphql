@@ -39,6 +39,8 @@ enum Pronoun {
 enum AllergenType {
     Bees,
     Pollen,
+    TreePollen,
+    Shellfish,
     Animals,
     Insects,
     Mold,
